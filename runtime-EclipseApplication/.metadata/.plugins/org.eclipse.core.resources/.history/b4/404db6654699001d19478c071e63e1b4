@@ -1,0 +1,103 @@
+-- @path xPDL=/xpdl2bpmnATL/MetaModel/xPDL.ecore
+-- @path Bpmn=/xpdl2bpmnATL/MetaModel/bpmn.ecore
+
+module Rule;
+create OUT: Bpmn from IN: xPDL;
+
+helper context xPDL!Activity def: caseManagement() : Bpmn!ActivityType =
+		if self.oclIsTypeOf(xPDL!BlockActivity)
+		then Bpmn!ActivityType.Task
+		else
+			if self.oclIsTypeOf(xPDL!SubFlow)
+			then Bpmn!ActivityType.SubProcess
+			else
+				if self.oclIsTypeOf(xPDL!Gateway) and self.rule = xPDL!GateRule.XOR
+				then Bpmn!ActivityType.GatewayDataBasedExclusive
+				else
+					if self.oclIsTypeOf(xPDL!Gateway) and self.rule = xPDL!GateRule.OR
+					then Bpmn!ActivityType.GatewayParallel
+					else
+						if self.oclIsTypeOf(xPDL!Gateway) and self.rule = xPDL!GateRule.AND
+						then Bpmn!ActivityType.GatewayDataBasedInclusive
+						else
+							if self.oclIsTypeOf(xPDL!Event) and self.type=xPDL!EventType.MESSAGE and self.time= xPDL!EventTime.START
+							then Bpmn!ActivityType.EventStartMessage
+							else
+								if self.oclIsTypeOf(xPDL!Event) and self.type=xPDL!EventType.MESSAGE and self.time= xPDL!EventTime.INTERMEDIATE
+								then Bpmn!ActivityType.EventIntermediateMessage
+								else
+									if self.oclIsTypeOf(xPDL!Event) and self.type=xPDL!EventType.MESSAGE and self.time= xPDL!EventTime.END
+									then Bpmn!ActivityType.EventEndMessage
+									else
+										if self.oclIsTypeOf(xPDL!Event) and self.type=xPDL!EventType.NONE and self.time= xPDL!EventTime.START
+										then Bpmn!ActivityType.EventStartEmpty
+										else
+											if self.oclIsTypeOf(xPDL!Event) and self.type=xPDL!EventType.NONE and self.time= xPDL!EventTime.INTERMEDIATE
+											then Bpmn!ActivityType.EventIntermediateEmpty
+											else
+												if self.oclIsTypeOf(xPDL!Event) and self.type=xPDL!EventType.NONE and self.time= xPDL!EventTime.END
+												then Bpmn!ActivityType.EventEndEmpty
+												else Bpmn!ActivityType.EventIntermediateRule
+												endif
+												
+											endif
+										endif
+									endif
+								endif
+							endif
+						endif
+					endif
+				endif
+			endif
+		endif;
+
+rule BpmnDiagram2xPDLRoot{
+	from
+		s:xPDL!XpdlRoot
+	to
+		t:Bpmn!BpmnDiagram (
+			name <- s.name ,
+			title <- s.name,
+			pools <- s.pools -> collect(e | thisModule.Pool2Pool(e)),
+			messages <- s.messageflows -> collect(e | thisModule.MessageFlow2Message(e))
+			)
+}
+lazy rule Pool2Pool{
+	from s:xPDL!Pool
+	to t:Bpmn!Pool(
+			iD <- s.id,
+			name <- s.name
+		)
+}
+lazy rule Lane2Lane{
+	from s:xPDL!Lane
+	to t:Bpmn!Lane(
+			iD <- s.id,
+			name <- s.name
+		)
+}
+lazy rule MessageFlow2Message{
+	from s:xPDL!MessageFlow
+	to t:Bpmn!Message(
+			name <- 'Message Flow',
+			source <- thisModule.Activity2Activity(s.source.oclIsTypeOf(xPDL!Activity)),
+			target <- thisModule.Activity2Activity(s.target.oclIsTypeOf(xPDL!Activity))
+		)
+}
+lazy rule Activity2Activity{
+	from s:xPDL!Activity
+	to t:Bpmn!Activity(
+		name <- s.title,
+		lane <- thisModule.Lane2Lane(s.lane),
+		activityType <- s.caseManagement()
+	)
+}
+rule Transision2Edge{
+	from s:xPDL!Transition
+	to t:Bpmn!Edge(
+		name <- s.condition,
+		source <- thisModule.Activity2Activity(s.source.oclIsTypeOf(xPDL!Activity)),
+		target <- thisModule.Activity2Activity(s.target.oclIsTypeOf(xPDL!Activity))
+	)
+		
+}

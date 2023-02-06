@@ -1,0 +1,28 @@
+XpdlRoot "x21d5s12" {
+	diagramName "default"
+	pools {
+		Pool "x21d5ss12" {
+			name "client"
+			lanes {
+				Lane "x21qsss12" {
+					name "default"
+					activityset{
+						 ActivitySet "acx21qsss12"{
+							name "default"
+							activities {
+								Event "ghgds12sjkl"{
+									title "start message"
+									time START
+									type MESSAGE
+								},
+								BlockActivity "ghgds12zs"{
+									title "activity"
+								}
+								}	
+							}
+						}
+					}
+				}
+			}
+		}
+}	

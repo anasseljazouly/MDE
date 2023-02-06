@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated xPDL -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="xPDL.presentation.XPDLModelWizardID"
+            name="%_UI_XPDLModelWizard_label"
+            class="xPDL.presentation.XPDLModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/XPDLModelFile.gif">
+         <description>%_UI_XPDLModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated xPDL -->
+      <editor
+            id="xPDL.presentation.XPDLEditorID"
+            name="%_UI_XPDLEditor_label"
+            icon="icons/full/obj16/XPDLModelFile.gif"
+            extensions="xpdl"
+            class="xPDL.presentation.XPDLEditor"
+            contributorClass="xPDL.presentation.XPDLActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

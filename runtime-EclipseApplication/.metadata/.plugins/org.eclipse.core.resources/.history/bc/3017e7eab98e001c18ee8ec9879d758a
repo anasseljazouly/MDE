@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:BpmnDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://stp.eclipse.org/bpmn">
+  <pools ID="_ZwyasIkkEeyH-p8nJIPpHA" name="client">
+    <vertices xsi:type="bpmn:Activity" ID="_c21loIkkEeyH-p8nJIPpHA" lane="#_qwDSwI63Eey1i-PSm3l3Mw">
+      <outgoingEdges>#_goJUEIkkEeyH-p8nJIPpHA</outgoingEdges>
+      <outgoingEdges>#_n4t5QI63Eey1i-PSm3l3Mw</outgoingEdges>
+    </vertices>
+    <vertices xsi:type="bpmn:Activity" ID="_dho2IIkkEeyH-p8nJIPpHA" lane="#_qwDSwI63Eey1i-PSm3l3Mw">
+      <outgoingEdges>#_enhgIIkkEeyH-p8nJIPpHA</outgoingEdges>
+      <outgoingMessages>#_kYHlwIkkEeyH-p8nJIPpHA</outgoingMessages>
+      <orderedMessages>#_kYHlwIkkEeyH-p8nJIPpHA</orderedMessages>
+    </vertices>
+    <vertices xsi:type="bpmn:Activity" ID="_U8VHwI63Eey1i-PSm3l3Mw" activityType="EventStartMessage" documentation="" name="start message">
+      <incomingEdges>#_dB12UI63Eey1i-PSm3l3Mw</incomingEdges>
+      <incomingEdges>#_n4t5QI63Eey1i-PSm3l3Mw</incomingEdges>
+    </vertices>
+    <edges ID="_enhgIIkkEeyH-p8nJIPpHA" target="#_dho2IIkkEeyH-p8nJIPpHA"/>
+    <edges ID="_goJUEIkkEeyH-p8nJIPpHA" target="#_c21loIkkEeyH-p8nJIPpHA"/>
+    <edges ID="_dB12UI63Eey1i-PSm3l3Mw" source="#_U8VHwI63Eey1i-PSm3l3Mw"/>
+    <edges ID="_n4t5QI63Eey1i-PSm3l3Mw" source="#_U8VHwI63Eey1i-PSm3l3Mw" target="#_c21loIkkEeyH-p8nJIPpHA"/>
+  </pools>
+  <pools ID="_hU0z4IkkEeyH-p8nJIPpHA" name="tst">
+    <vertices xsi:type="bpmn:Activity" ID="_iUp5MIkkEeyH-p8nJIPpHA">
+      <incomingEdges>#_pNjlQI63Eey1i-PSm3l3Mw</incomingEdges>
+      <incomingMessages>#_kYHlwIkkEeyH-p8nJIPpHA</incomingMessages>
+      <orderedMessages>#_kYHlwIkkEeyH-p8nJIPpHA</orderedMessages>
+    </vertices>
+    <vertices xsi:type="bpmn:Activity" ID="_Z10mQI63Eey1i-PSm3l3Mw" activityType="EventIntermediateMessage" lane="#_qwDSwI63Eey1i-PSm3l3Mw" name="message">
+      <incomingEdges>#_6sZasI63Eey1i-PSm3l3Mw</incomingEdges>
+    </vertices>
+    <vertices xsi:type="bpmn:SubProcess" ID="_qHEnMI63Eey1i-PSm3l3Mw">
+      <outgoingEdges>#_pNjlQI63Eey1i-PSm3l3Mw</outgoingEdges>
+    </vertices>
+    <vertices xsi:type="bpmn:Activity" ID="_3A7OgI63Eey1i-PSm3l3Mw" activityType="EventEndMessage" name="test">
+      <outgoingEdges>#_6sZasI63Eey1i-PSm3l3Mw</outgoingEdges>
+    </vertices>
+    <edges ID="_pNjlQI63Eey1i-PSm3l3Mw" source="#_iUp5MIkkEeyH-p8nJIPpHA" target="#_qHEnMI63Eey1i-PSm3l3Mw"/>
+    <edges ID="_6sZasI63Eey1i-PSm3l3Mw" source="#_Z10mQI63Eey1i-PSm3l3Mw" target="#_3A7OgI63Eey1i-PSm3l3Mw"/>
+    <lanes ID="_qwDSwI63Eey1i-PSm3l3Mw" name="lane">
+      <activities>_c21loIkkEeyH-p8nJIPpHA</activities>
+      <activities>_dho2IIkkEeyH-p8nJIPpHA</activities>
+      <activities>_Z10mQI63Eey1i-PSm3l3Mw</activities>
+    </lanes>
+  </pools>
+  <messages ID="_kYHlwIkkEeyH-p8nJIPpHA" source="#_dho2IIkkEeyH-p8nJIPpHA" target="#_iUp5MIkkEeyH-p8nJIPpHA"/>
+</bpmn:BpmnDiagram>

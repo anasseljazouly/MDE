@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:BpmnDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://stp.eclipse.org/bpmn">
+  <pools ID="_6YfJgJl_Ee2rK5xFJip1tw" name="Pool 1">
+    <vertices xsi:type="bpmn:Activity" ID="_LsnjwJmAEe2rK5xFJip1tw">
+      <incomingEdges>#_jDgxsJmAEe2rK5xFJip1tw</incomingEdges>
+      <outgoingEdges>#_fYMWgJmAEe2rK5xFJip1tw</outgoingEdges>
+    </vertices>
+    <vertices xsi:type="bpmn:Activity" ID="_QUcqgJmAEe2rK5xFJip1tw">
+      <incomingEdges>#_fYMWgJmAEe2rK5xFJip1tw</incomingEdges>
+      <outgoingEdges>#_d0wN0JmAEe2rK5xFJip1tw</outgoingEdges>
+    </vertices>
+    <vertices xsi:type="bpmn:Activity" ID="_Wu5lcJmAEe2rK5xFJip1tw" activityType="EventStartEmpty" name="start">
+      <incomingEdges>#_d0wN0JmAEe2rK5xFJip1tw</incomingEdges>
+    </vertices>
+    <vertices xsi:type="bpmn:Activity" ID="_im4gEJmAEe2rK5xFJip1tw" activityType="EventIntermediateMessage">
+      <outgoingEdges>#_jDgxsJmAEe2rK5xFJip1tw</outgoingEdges>
+      <outgoingMessages>#_jxM-IJmAEe2rK5xFJip1tw</outgoingMessages>
+      <orderedMessages>#_jxM-IJmAEe2rK5xFJip1tw</orderedMessages>
+    </vertices>
+    <edges ID="_d0wN0JmAEe2rK5xFJip1tw" source="#_Wu5lcJmAEe2rK5xFJip1tw" target="#_QUcqgJmAEe2rK5xFJip1tw"/>
+    <edges ID="_fYMWgJmAEe2rK5xFJip1tw" source="#_QUcqgJmAEe2rK5xFJip1tw" target="#_LsnjwJmAEe2rK5xFJip1tw"/>
+    <edges ID="_jDgxsJmAEe2rK5xFJip1tw" source="#_LsnjwJmAEe2rK5xFJip1tw" target="#_im4gEJmAEe2rK5xFJip1tw"/>
+  </pools>
+  <pools ID="_7p-mkJl_Ee2rK5xFJip1tw" name="Pool 2">
+    <vertices xsi:type="bpmn:Activity" ID="_huanAJmAEe2rK5xFJip1tw" activityType="EventStartMessage">
+      <incomingEdges>#_lK7KIJmAEe2rK5xFJip1tw</incomingEdges>
+      <incomingMessages>#_jxM-IJmAEe2rK5xFJip1tw</incomingMessages>
+      <orderedMessages>#_jxM-IJmAEe2rK5xFJip1tw</orderedMessages>
+    </vertices>
+    <vertices xsi:type="bpmn:Activity" ID="_kb3rwJmAEe2rK5xFJip1tw">
+      <incomingEdges>#_n9n7QJmAEe2rK5xFJip1tw</incomingEdges>
+      <outgoingEdges>#_lK7KIJmAEe2rK5xFJip1tw</outgoingEdges>
+    </vertices>
+    <vertices xsi:type="bpmn:Activity" ID="_m6vh8JmAEe2rK5xFJip1tw">
+      <incomingEdges>#_oWfuQJmAEe2rK5xFJip1tw</incomingEdges>
+      <incomingEdges>#_rzeLcJmAEe2rK5xFJip1tw</incomingEdges>
+      <outgoingEdges>#_n9n7QJmAEe2rK5xFJip1tw</outgoingEdges>
+    </vertices>
+    <vertices xsi:type="bpmn:Activity" ID="_q7zjoJmAEe2rK5xFJip1tw" activityType="EventEndTerminate">
+      <outgoingEdges>#_rzeLcJmAEe2rK5xFJip1tw</outgoingEdges>
+    </vertices>
+    <edges ID="_lK7KIJmAEe2rK5xFJip1tw" source="#_huanAJmAEe2rK5xFJip1tw" target="#_kb3rwJmAEe2rK5xFJip1tw"/>
+    <edges ID="_n9n7QJmAEe2rK5xFJip1tw" source="#_kb3rwJmAEe2rK5xFJip1tw" target="#_m6vh8JmAEe2rK5xFJip1tw"/>
+    <edges ID="_oWfuQJmAEe2rK5xFJip1tw" source="#_m6vh8JmAEe2rK5xFJip1tw"/>
+    <edges ID="_rzeLcJmAEe2rK5xFJip1tw" source="#_m6vh8JmAEe2rK5xFJip1tw" target="#_q7zjoJmAEe2rK5xFJip1tw"/>
+  </pools>
+  <messages ID="_jxM-IJmAEe2rK5xFJip1tw" source="#_im4gEJmAEe2rK5xFJip1tw" target="#_huanAJmAEe2rK5xFJip1tw"/>
+</bpmn:BpmnDiagram>

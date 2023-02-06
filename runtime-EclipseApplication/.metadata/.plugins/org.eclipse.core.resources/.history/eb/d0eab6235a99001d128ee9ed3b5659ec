@@ -1,0 +1,29 @@
+XpdlRoot "x21d5s12" {
+	diagramName "default"
+	pools {
+		Pool "aaa"{
+			lanes {
+				Lane "x21qdqasss12" {
+					name "default"
+					activityset 
+						 ActivitySet "acx21qzazsss12"{
+							name "default"
+							activities {
+								Event "ghgds1fs2qssjkl"{
+									title "mess"
+									time INTERMEDIATE
+									type MESSAGE
+								}
+							}	
+						}
+				
+		}}},
+		Pool "aaca"{
+			lanes {
+				Lane "x21qdqasscs12" {		
+		}
+	}
+	}
+	}}
+
+	

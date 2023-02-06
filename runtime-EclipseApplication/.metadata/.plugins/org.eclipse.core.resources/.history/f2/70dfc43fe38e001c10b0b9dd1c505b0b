@@ -1,0 +1,82 @@
+XpdlRoot "x21d5s12" {
+	diagramName "default"
+	pools {
+		Pool "x21d5ss12" {
+			name "client"
+			lanes {
+				Lane "x21qsss12" {
+					name "default"
+					activityset 
+						 ActivitySet "acx2sq1qsss12"{
+							name "default"
+							activities {
+								Event "ghgds12sjkl"{
+									title "start message"
+									time START
+									type MESSAGE
+								},
+								BlockActivity "ghgds12zs"{
+									title "activity"
+								}
+							}	
+						}
+				}
+			}
+		},
+		Pool "x21d5ssdqd12" {
+			name "tst"
+			lanes {
+				Lane "x21qdqasss12" {
+					name "default"
+					activityset 
+						 ActivitySet "acx21qzazsss12"{
+							name "default"
+							activities {
+								Event "ghgds1fs2qssjkl"{
+									title "mess"
+									time INTERMEDIATE
+									type MESSAGE
+								},
+								BlockActivity "ghgdfsqs12zs"{
+									title "activity"
+								}
+							}	
+						}
+				},
+				Lane "gyhgdqrqdqe" {
+					name "default"
+					activityset 
+						 ActivitySet "acxqdq21qzazsss12"{
+							name "default"
+							activities {
+								Event "dsqdDQSDQ" {
+									title "tes"
+									time INTERMEDIATE
+									type MESSAGE
+								}
+							}	
+						}
+					}
+				}
+				
+			}
+		}
+	process{
+		Process "jqgsjqskq" {
+			name "useless name"
+			pool client
+			transitions{
+				
+			}
+		}
+	}
+	messageflows{
+		MessageFlow {
+			source client
+			target tst
+		}
+	}
+	
+}
+
+	

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/XPDL/src-gen" creationIcons="false" editDirectory="/XPDL.edit/src-gen"
+    editorDirectory="/XPDL.editor/src-gen" modelPluginID="XPDL" modelName="XPDL" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    codeFormatting="true" importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0"
+    copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>xPDL.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="XPDL" disposableProviderFactory="true" ecorePackage="xPDL.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="xPDL.ecore#//EventTime">
+      <genEnumLiterals ecoreEnumLiteral="xPDL.ecore#//EventTime/START"/>
+      <genEnumLiterals ecoreEnumLiteral="xPDL.ecore#//EventTime/INTERMEDIATE"/>
+      <genEnumLiterals ecoreEnumLiteral="xPDL.ecore#//EventTime/END"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="xPDL.ecore#//EventType">
+      <genEnumLiterals ecoreEnumLiteral="xPDL.ecore#//EventType/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="xPDL.ecore#//EventType/MESSAGE"/>
+      <genEnumLiterals ecoreEnumLiteral="xPDL.ecore#//EventType/EROR"/>
+      <genEnumLiterals ecoreEnumLiteral="xPDL.ecore#//EventType/RULE"/>
+      <genEnumLiterals ecoreEnumLiteral="xPDL.ecore#//EventType/TIMER"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="xPDL.ecore#//GateRule">
+      <genEnumLiterals ecoreEnumLiteral="xPDL.ecore#//GateRule/XOR"/>
+      <genEnumLiterals ecoreEnumLiteral="xPDL.ecore#//GateRule/OR"/>
+      <genEnumLiterals ecoreEnumLiteral="xPDL.ecore#//GateRule/AND"/>
+    </genEnums>
+    <genClasses ecoreClass="xPDL.ecore#//XpdlRoot">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xPDL.ecore#//XpdlRoot/pools"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xPDL.ecore#//XpdlRoot/process"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xPDL.ecore#//XpdlRoot/messageflows"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xPDL.ecore#//XpdlRoot/diagramName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xPDL.ecore#//XpdlRoot/id"/>
+    </genClasses>
+    <genClasses ecoreClass="xPDL.ecore#//Pool">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xPDL.ecore#//Pool/lanes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xPDL.ecore#//Pool/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xPDL.ecore#//Pool/name"/>
+    </genClasses>
+    <genClasses ecoreClass="xPDL.ecore#//Lane">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xPDL.ecore#//Lane/activityset"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xPDL.ecore#//Lane/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xPDL.ecore#//Lane/name"/>
+    </genClasses>
+    <genClasses ecoreClass="xPDL.ecore#//ActivitySet">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xPDL.ecore#//ActivitySet/activities"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xPDL.ecore#//ActivitySet/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xPDL.ecore#//ActivitySet/name"/>
+    </genClasses>
+    <genClasses ecoreClass="xPDL.ecore#//Process">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xPDL.ecore#//Process/transitions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference xPDL.ecore#//Process/activityset"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference xPDL.ecore#//Process/pool"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xPDL.ecore#//Process/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xPDL.ecore#//Process/name"/>
+    </genClasses>
+    <genClasses ecoreClass="xPDL.ecore#//Activity">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xPDL.ecore#//Activity/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xPDL.ecore#//Activity/title"/>
+    </genClasses>
+    <genClasses ecoreClass="xPDL.ecore#//BlockActivity"/>
+    <genClasses ecoreClass="xPDL.ecore#//Event">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xPDL.ecore#//Event/time"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xPDL.ecore#//Event/type"/>
+    </genClasses>
+    <genClasses ecoreClass="xPDL.ecore#//Gateway">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xPDL.ecore#//Gateway/rule"/>
+    </genClasses>
+    <genClasses ecoreClass="xPDL.ecore#//SubFlow"/>
+    <genClasses ecoreClass="xPDL.ecore#//Artifact"/>
+    <genClasses ecoreClass="xPDL.ecore#//DataObject"/>
+    <genClasses image="false" ecoreClass="xPDL.ecore#//AssociationValid"/>
+    <genClasses image="false" ecoreClass="xPDL.ecore#//TransitionValid"/>
+    <genClasses image="false" ecoreClass="xPDL.ecore#//MessageFlowValid"/>
+    <genClasses ecoreClass="xPDL.ecore#//MessageFlow">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference xPDL.ecore#//MessageFlow/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference xPDL.ecore#//MessageFlow/target"/>
+    </genClasses>
+    <genClasses ecoreClass="xPDL.ecore#//Association">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference xPDL.ecore#//Association/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference xPDL.ecore#//Association/target"/>
+    </genClasses>
+    <genClasses ecoreClass="xPDL.ecore#//Transition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference xPDL.ecore#//Transition/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference xPDL.ecore#//Transition/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute xPDL.ecore#//Transition/condition"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

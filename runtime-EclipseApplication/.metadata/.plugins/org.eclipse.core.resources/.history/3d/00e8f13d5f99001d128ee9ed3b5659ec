@@ -1,0 +1,40 @@
+XpdlRoot "test1" {
+	diagramName "testDiagram"
+	pools {
+		Pool "P1"{
+			name  "pool1"
+			lanes{
+				Lane "L1" {
+					name "lane1"
+					activityset 
+						 ActivitySet "acx21qzazsss12"{
+							name "default"
+							activities {
+								Activity "f" {
+									title "test" }
+									,
+									
+
+								Event "ghgds1fs2qssjkl"{
+									title "mess"
+									time INTERMEDIATE
+									type MESSAGE
+								}
+							}	
+						}
+				
+		}}},
+		Pool "P2"{
+			name  "pool2"
+			lanes {
+				Lane "L2" {	
+					name "lane2"	
+		}
+	}
+	}
+	}
+
+}
+	
+
+	

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:BpmnDiagram xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://stp.eclipse.org/bpmn" name="test" title="help">
+  <pools ID="_ZwyasIkkEeyH-p8nJIPpHA" name="client">
+    <vertices xsi:type="bpmn:Activity" ID="_dho2IIkkEeyH-p8nJIPpHA">
+      <outgoingEdges>#_enhgIIkkEeyH-p8nJIPpHA</outgoingEdges>
+      <outgoingEdges>#_QJYnQI7lEeyWpcsUQddOFw</outgoingEdges>
+    </vertices>
+    <vertices xsi:type="bpmn:Activity" ID="_U8VHwI63Eey1i-PSm3l3Mw" activityType="EventStartMessage" documentation="" name="start message">
+      <incomingEdges>#_dB12UI63Eey1i-PSm3l3Mw</incomingEdges>
+      <incomingEdges>#_n4t5QI63Eey1i-PSm3l3Mw</incomingEdges>
+      <incomingEdges>#_gf6JwI7lEeyWpcsUQddOFw</incomingEdges>
+    </vertices>
+    <vertices xsi:type="bpmn:SubProcess" ID="_NpfdYI7lEeyWpcsUQddOFw" name="test">
+      <incomingEdges>#_QJYnQI7lEeyWpcsUQddOFw</incomingEdges>
+      <outgoingEdges>#_gf6JwI7lEeyWpcsUQddOFw</outgoingEdges>
+      <outgoingMessages>#_bimQUI7nEeyWpcsUQddOFw</outgoingMessages>
+      <orderedMessages>#_bimQUI7nEeyWpcsUQddOFw</orderedMessages>
+      <edges ID="_QJYnQI7lEeyWpcsUQddOFw" source="#_NpfdYI7lEeyWpcsUQddOFw" target="#_dho2IIkkEeyH-p8nJIPpHA"/>
+    </vertices>
+    <edges ID="_enhgIIkkEeyH-p8nJIPpHA" target="#_dho2IIkkEeyH-p8nJIPpHA"/>
+    <edges ID="_goJUEIkkEeyH-p8nJIPpHA"/>
+    <edges ID="_dB12UI63Eey1i-PSm3l3Mw" source="#_U8VHwI63Eey1i-PSm3l3Mw"/>
+    <edges ID="_n4t5QI63Eey1i-PSm3l3Mw" source="#_U8VHwI63Eey1i-PSm3l3Mw"/>
+    <edges ID="_gf6JwI7lEeyWpcsUQddOFw" source="#_U8VHwI63Eey1i-PSm3l3Mw" target="#_NpfdYI7lEeyWpcsUQddOFw"/>
+  </pools>
+  <pools ID="_hU0z4IkkEeyH-p8nJIPpHA" name="tst">
+    <vertices xsi:type="bpmn:Activity" ID="_iUp5MIkkEeyH-p8nJIPpHA">
+      <incomingEdges>#_pNjlQI63Eey1i-PSm3l3Mw</incomingEdges>
+      <incomingEdges>#_l0CV0I7lEeyWpcsUQddOFw</incomingEdges>
+      <outgoingEdges>#_KWh30I7lEeyWpcsUQddOFw</outgoingEdges>
+      <incomingMessages>#_bimQUI7nEeyWpcsUQddOFw</incomingMessages>
+      <orderedMessages>#_bimQUI7nEeyWpcsUQddOFw</orderedMessages>
+    </vertices>
+    <vertices xsi:type="bpmn:Activity" ID="_Z10mQI63Eey1i-PSm3l3Mw" activityType="EventIntermediateMessage" name="message">
+      <incomingEdges>#_6sZasI63Eey1i-PSm3l3Mw</incomingEdges>
+      <incomingEdges>#_413E8I65Eey1i-PSm3l3Mw</incomingEdges>
+      <incomingEdges>#_mnvqsI7lEeyWpcsUQddOFw</incomingEdges>
+      <outgoingEdges>#_pNjlQI63Eey1i-PSm3l3Mw</outgoingEdges>
+    </vertices>
+    <vertices xsi:type="bpmn:Activity" ID="_ImdBUI7lEeyWpcsUQddOFw" activityType="EventStartRule">
+      <incomingEdges>#_KWh30I7lEeyWpcsUQddOFw</incomingEdges>
+    </vertices>
+    <vertices xsi:type="bpmn:Activity" ID="_iKh4gI7lEeyWpcsUQddOFw" activityType="EventEndTerminate">
+      <outgoingEdges>#_nWEJQI7lEeyWpcsUQddOFw</outgoingEdges>
+    </vertices>
+    <vertices xsi:type="bpmn:Activity" ID="_kAhw0I7lEeyWpcsUQddOFw" activityType="GatewayEventBasedExclusive">
+      <incomingEdges>#_nWEJQI7lEeyWpcsUQddOFw</incomingEdges>
+      <outgoingEdges>#_mR3hUI7lEeyWpcsUQddOFw</outgoingEdges>
+      <outgoingEdges>#_mnvqsI7lEeyWpcsUQddOFw</outgoingEdges>
+    </vertices>
+    <vertices xsi:type="bpmn:Activity" ID="_lMQkII7lEeyWpcsUQddOFw" activityType="EventIntermediateRule">
+      <incomingEdges>#_mR3hUI7lEeyWpcsUQddOFw</incomingEdges>
+      <outgoingEdges>#_l0CV0I7lEeyWpcsUQddOFw</outgoingEdges>
+    </vertices>
+    <edges ID="_pNjlQI63Eey1i-PSm3l3Mw" source="#_iUp5MIkkEeyH-p8nJIPpHA" target="#_Z10mQI63Eey1i-PSm3l3Mw"/>
+    <edges ID="_6sZasI63Eey1i-PSm3l3Mw" source="#_Z10mQI63Eey1i-PSm3l3Mw"/>
+    <edges ID="_413E8I65Eey1i-PSm3l3Mw" source="#_Z10mQI63Eey1i-PSm3l3Mw"/>
+    <edges ID="_KWh30I7lEeyWpcsUQddOFw" source="#_ImdBUI7lEeyWpcsUQddOFw" target="#_iUp5MIkkEeyH-p8nJIPpHA"/>
+    <edges ID="_l0CV0I7lEeyWpcsUQddOFw" source="#_iUp5MIkkEeyH-p8nJIPpHA" target="#_lMQkII7lEeyWpcsUQddOFw"/>
+    <edges ID="_mR3hUI7lEeyWpcsUQddOFw" source="#_lMQkII7lEeyWpcsUQddOFw" target="#_kAhw0I7lEeyWpcsUQddOFw"/>
+    <edges ID="_mnvqsI7lEeyWpcsUQddOFw" source="#_Z10mQI63Eey1i-PSm3l3Mw" target="#_kAhw0I7lEeyWpcsUQddOFw"/>
+    <edges ID="_nWEJQI7lEeyWpcsUQddOFw" source="#_kAhw0I7lEeyWpcsUQddOFw" target="#_iKh4gI7lEeyWpcsUQddOFw"/>
+  </pools>
+  <messages ID="_bimQUI7nEeyWpcsUQddOFw" source="#_NpfdYI7lEeyWpcsUQddOFw" target="#_iUp5MIkkEeyH-p8nJIPpHA"/>
+</bpmn:BpmnDiagram>

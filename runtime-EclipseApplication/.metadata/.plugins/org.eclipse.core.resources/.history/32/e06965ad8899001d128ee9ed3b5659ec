@@ -1,0 +1,69 @@
+-- @path xPDL=/xpdl2bpmnATL/MetaModel/xPDL.ecore
+-- @path Bpmn=/xpdl2bpmnATL/MetaModel/bpmn.ecore
+
+module Rule;
+create OUT: Bpmn from IN: xPDL;
+
+helper context xPDL!Activity def: caseManagement() : Bpmn!ActivityType =
+		if self.oclIsTypeOf(xPDL!Activity)
+		then '#Task'
+		else Bpmn!ActivityType
+		endif;
+
+rule BpmnDiagram2xPDLRoot{
+	from
+		s:xPDL!XpdlRoot
+	to
+		t:Bpmn!BpmnDiagram (
+			name <- s.diagramName,
+			title <- s.diagramName,
+			pools <- s.pools -> collect(e | thisModule.Pool2Pool(e)),
+			messages <- s.messageflows -> collect(e | thisModule.MessageFlow2Message(e))
+			)
+}
+lazy rule Pool2Pool{
+	from s:xPDL!Pool
+	to t:Bpmn!Pool(
+			iD <- s.id,
+			name <- s.name,
+			lanes <- s.lanes -> collect(e | thisModule.Lane2Lane(e))
+		)
+}
+lazy rule Lane2Lane{
+	from s:xPDL!Lane
+	to t:Bpmn!Lane(
+			iD <- s.id,
+			name <- s.name,
+			activities <- s.activityset.activities  -> collect(e | thisModule.Activity2Activity(e))
+		)
+}
+
+
+
+
+
+lazy rule MessageFlow2Message{
+	from s:xPDL!MessageFlow
+	to t:Bpmn!Message(
+			name <- 'Message Flow',
+			source <- thisModule.Activity2Activity(s.source.oclIsTypeOf(xPDL!Activity)),
+			target <- thisModule.Activity2Activity(s.target.oclIsTypeOf(xPDL!Activity))
+		)
+}
+lazy rule Activity2Activity{
+	from s:xPDL!Activity
+	to t:Bpmn!Activity(
+		name <- s.title,
+		activityType <- s.caseManagement()
+	)
+}
+rule Transition2Edge{
+	from s:xPDL!Transition
+	to t:Bpmn!Edge(
+		name <- s.condition,
+		source <- thisModule.Activity2Activity(s.source.oclIsTypeOf(xPDL!Activity)),
+		target <- thisModule.Activity2Activity(s.target.oclIsTypeOf(xPDL!Activity))
+	)
+		
+}
+

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;xpdl2bpmnATL/MetaModle&apos; to &apos;MetaModem&apos;" description="Rename resource &apos;MetaModle&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="MetaModle" name="MetaModem" stamp="1674272882958" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;xpdl2bpmnATL/MetaModem&apos; to &apos;MetaModel&apos;" description="Rename resource &apos;MetaModem&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="MetaModem" name="MetaModel" stamp="1674272889785" updateReferences="true"/>
+</session>

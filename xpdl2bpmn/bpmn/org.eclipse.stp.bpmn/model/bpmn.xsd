@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:bpmn="http://stp.eclipse.org/bpmn" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://stp.eclipse.org/bpmn">
+<!-- 
+ Copyright (c) 2006, Intalio Inc.
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License v1.0
+ which accompanies this distribution, and is available at
+ http://www.eclipse.org/legal/epl-v10.html
+ 
+ Contributors:
+     Intalio Inc. - initial API and implementation
+-->
+
+	<!-- base things -->
+	<xsd:attributeGroup name="base">
+	  <xsd:attribute name="name" type="xsd:string"/>
+	  <xsd:attribute name="documentation" type="xsd:string"/>
+	</xsd:attributeGroup>
+	<!-- properties map string to string -->
+	<xsd:complexType name="Properties">
+		<xsd:sequence>
+			<!-- values of properties are either a string either a reference to any object (anyURI) -->
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="properties">
+				<xsd:complexType ecore:instanceClass="java.util.Map$Entry">
+				<!-- this is for string to string entries -->
+					<xsd:attribute name="key" type="xsd:string"/>
+					<xsd:attribute name="value" type="xsd:string"/>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- take a look here if we need other types:
+			http://dev.eclipse.org/newslists/news.eclipse.tools.emf/msg18085.html -->
+		</xsd:sequence>
+	</xsd:complexType>
+	
+<!-- abstract objects that define a graph one graph per pool or sub-process -->	
+	<xsd:complexType name="Graph">
+        <xsd:sequence>
+            <xsd:element ecore:opposite="graph" maxOccurs="unbounded" minOccurs="0" name="vertices" type="bpmn:Vertex"/>
+            <xsd:element ecore:opposite="graph" maxOccurs="unbounded" minOccurs="0" name="edges" type="bpmn:Edge"/>
+        </xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Vertex">
+		<xsd:sequence>
+            <xsd:element ecore:opposite="source" ecore:reference="bpmn:Edge" maxOccurs="unbounded" minOccurs="0" name="incomingEdges" type="xsd:anyURI"/>
+            <xsd:element ecore:opposite="target" ecore:reference="bpmn:Edge" maxOccurs="unbounded" minOccurs="0" name="outgoingEdges" type="xsd:anyURI"/>
+        </xsd:sequence>
+        <xsd:attribute type="xsd:ID" name="ID"/>
+    	<xsd:attribute ecore:opposite="vertices" ecore:reference="bpmn:Graph" name="graph" type="xsd:anyURI"/>
+	</xsd:complexType>
+	
+    <xsd:complexType name="Edge">
+		<xsd:sequence>
+			<xsd:element ecore:reference="bpmn:Properties" name="properties" type="bpmn:Properties"/>
+		</xsd:sequence>
+        <xsd:attribute type="xsd:ID" name="ID"/>
+    	<xsd:attribute ecore:opposite="edges" ecore:reference="bpmn:Graph" name="graph" type="xsd:anyURI"/>
+    	<xsd:attribute ecore:opposite="outgoingEdges" ecore:reference="bpmn:Vertex" name="source" type="xsd:anyURI"/>
+    	<xsd:attribute ecore:opposite="incomingEdges" ecore:reference="bpmn:Vertex" name="target" type="xsd:anyURI"/>
+    	<xsd:attributeGroup ref="bpmn:base"/>
+    </xsd:complexType>
+    
+<!-- end of abstract objects that define a graph -->	
+	
+	<!-- the root element: don't put one!
+	<xsd:element name="BpmnDiagram" type="bpmn:BpmnDiagram"/> -->
+	
+	<!-- root -->
+	<xsd:complexType name="BpmnDiagram">
+        <xsd:sequence>
+            <xsd:element ecore:opposite="bpmnDiagram" maxOccurs="unbounded" minOccurs="0" name="pools" type="bpmn:Pool"/>
+            <xsd:element ecore:opposite="bpmnDiagram" maxOccurs="unbounded" minOccurs="0" name="messages" type="bpmn:Message"/>
+        </xsd:sequence>
+        <xsd:attribute name="title" type="xsd:string"/>
+        <xsd:attribute name="author" type="xsd:string"/>
+        <xsd:attributeGroup ref="bpmn:base"/>
+    </xsd:complexType>
+    
+    <!-- pool is jus a graph with a reference to the bpmnDiagram -->
+    <xsd:complexType name="Pool">
+    	<xsd:complexContent>
+	    	<xsd:extension base="bpmn:Graph">
+		        <xsd:sequence>
+		            <xsd:element ecore:opposite="pool" maxOccurs="unbounded" minOccurs="0" name="lanes" type="bpmn:Lane"/>
+		        </xsd:sequence>
+        		<xsd:attribute type="xsd:ID" name="ID"/>
+		        <xsd:attribute ecore:opposite="pools" ecore:reference="bpmn:BpmnDiagram" name="bpmnDiagram"/>
+		        <xsd:attributeGroup ref="bpmn:base"/>
+		    </xsd:extension>
+		</xsd:complexContent>
+    </xsd:complexType>
+    
+    <!-- activities are a specialization of a vertex 
+    	they have messaging abilities and doc and name
+    	activities can pretty much morph into any bpmn node.
+    	the schema does not enforce much.
+    	This is to keep a pretty generic model that hopefully won't move too much
+    	The drawback is that the code generated needs to be customized with a lot of
+    	structural constraints. The advantage is that it will be possible to morph nodes into
+    	one another in the diagram -->
+    <xsd:complexType name="Activity">
+    	<xsd:complexContent>
+	    	<xsd:extension base="bpmn:Vertex">
+	    		<xsd:sequence>
+	    			<xsd:element ecore:reference="bpmn:Properties" name="properties" type="bpmn:Properties"/>
+	    			<xsd:element name="incomingMessages" ecore:opposite="target" ecore:reference="bpmn:Message" maxOccurs="unbounded" minOccurs="0" type="xsd:anyURI"/>
+            		<xsd:element name="outgoingMessages" ecore:opposite="source" ecore:reference="bpmn:Message" maxOccurs="unbounded" minOccurs="0" type="xsd:anyURI"/>
+            		<!-- these are the messages ordered there is no opposite: don't know how to reflect this in the interfaces 
+            			It is crucial to keep track of the order of the messages as incoming followed by outgoing
+            			is very different than outgoing then incoming -->
+	    			<xsd:element ecore:reference="bpmn:Message" maxOccurs="unbounded" minOccurs="0" name="orderedMessages" type="xsd:anyURI"/>
+	    		</xsd:sequence>
+	    		<!-- the type of activity -->
+	    		<xsd:attribute default="Task" name="activityType" type="bpmn:ActivityType"/>
+	    		<!-- the lane reference (optional) -->
+	    		<xsd:attribute ecore:opposite="activities" ecore:reference="bpmn:Lane" name="lane" type="xsd:anyURI" use="optional"/>
+	    		<!-- should it carry the loop decoration?
+	    			Note: we do _not_ define the type of loop here.
+	    			That belongs to the data-editor that is specific to the target language -->
+	    		<xsd:attribute name="looping" type="xsd:boolean"/>
+	    		<!-- points to the sub-process that this intermediary event is defined for. In all other cases it is null. -->
+	    		<xsd:attribute ecore:opposite="eventHandlers" ecore:reference="bpmn:SubProcess" name="eventHandlerFor" type="xsd:anyURI"/>
+		        <xsd:attributeGroup ref="bpmn:base"/>
+		    </xsd:extension>
+		</xsd:complexContent>
+    </xsd:complexType>
+    
+    <!-- sub process are vertex amongst the enclosing sub process or pool
+    and at the same time they are also a graph
+    they also holds a lits of event handlers shape -->
+    <xsd:complexType ecore:implements="bpmn:Graph" name="SubProcess">
+    	<xsd:complexContent>
+	    	<xsd:extension base="bpmn:Activity">
+	    		<!-- intermediate events on the border of the shape -->
+	    		<xsd:sequence>
+            		<xsd:element ecore:opposite="eventHandlerFor" maxOccurs="unbounded" minOccurs="0" name="eventHandlers" type="bpmn:Activity"/>
+	    		</xsd:sequence>
+	    		<!-- should it carry the transaction decoration?
+	    			Note: we do _not_ define the type of loop here.
+	    			That belongs to the data-editor that is specific to the target language -->
+	    		<xsd:attribute name="isTransaction" type="xsd:boolean"/>
+	    		<!-- defaults the type of activity -->
+	    		<xsd:attribute fixed="SubProcess" name="activityType" type="bpmn:ActivityType"/>
+	    		<!-- the state: collapsed, expanded or maximized is in the notation model -->
+	    	</xsd:extension>
+	    </xsd:complexContent>
+	</xsd:complexType>
+    <!-- messaging edges are completly different -->
+    <xsd:complexType name="Message">
+		<xsd:sequence>
+			<xsd:element ecore:reference="bpmn:Properties" name="properties" type="bpmn:Properties"/>
+		</xsd:sequence>
+        <xsd:attribute type="xsd:ID" name="ID"/>
+    	<!-- the messaging edges in this diagram -->
+    	<xsd:attribute ecore:opposite="messages" ecore:reference="bpmn:BpmnDiagram" name="bpmnDiagram" type="xsd:anyURI"/>
+    	<xsd:attribute ecore:opposite="outgoingMessages" ecore:reference="bpmn:Activity" name="source" type="xsd:anyURI"/>
+    	<xsd:attribute ecore:opposite="incomingMessages" ecore:reference="bpmn:Activity" name="target" type="xsd:anyURI"/>
+    	<xsd:attributeGroup ref="bpmn:base"/>
+    </xsd:complexType>
+    
+    <!-- lanes -->
+    <xsd:complexType name="Lane">
+		<xsd:sequence>
+			<xsd:element ecore:reference="bpmn:Properties" name="properties" type="bpmn:Properties"/>
+			<xsd:element ecore:reference="bpmn:Activity" maxOccurs="unbounded" minOccurs="0" name="activities" type="bpmn:Activity"/>
+		</xsd:sequence>
+        <xsd:attribute type="xsd:ID" name="ID"/>
+    	<xsd:attribute ecore:opposite="lanes" ecore:reference="bpmn:Pool" name="pool" type="xsd:anyURI"/>
+    	<xsd:attributeGroup ref="bpmn:base"/>
+    </xsd:complexType>
+
+<!-- various types of activities -->
+    <xsd:simpleType name="ActivityType">
+    	<xsd:restriction base="xsd:string">
+      
+      		<!-- activity, subprocess -->
+      		<xsd:enumeration value="Task"/>
+      		<xsd:enumeration value="SubProcess"/>
+    
+    		<!-- start events -->
+      		<xsd:enumeration value="EventStartEmpty"/>
+      		<xsd:enumeration value="EventStartMessage"/>
+      		<xsd:enumeration value="EventStartRule"/>
+      		
+      		<!-- intermediate event -->
+      		<xsd:enumeration value="EventIntermediateEmpty"/>
+      		<xsd:enumeration value="EventIntermediateMessage"/>
+      		<xsd:enumeration value="EventIntermediateTimer"/>
+      		<xsd:enumeration value="EventIntermediateError"/>
+      		<xsd:enumeration value="EventIntermediateCompensation"/>
+      		<xsd:enumeration value="EventIntermediateRule"/>
+      
+    		<!-- end events -->
+      		<xsd:enumeration value="EventEndEmpty"/>
+      		<xsd:enumeration value="EventEndMessage"/>
+      		<xsd:enumeration value="EventEndError"/>
+      		<xsd:enumeration value="EventEndCompensation"/>
+      		<xsd:enumeration value="EventEndTerminate"/>
+      		
+      		<!-- gateways -->
+      		<xsd:enumeration value="GatewayDataBasedExclusive"/>
+      		<xsd:enumeration value="GatewayEventBasedExclusive"/>
+      		<xsd:enumeration value="GatewayDataBasedInclusive"/>
+      		<xsd:enumeration value="GatewayParallel"/>
+      		
+    	</xsd:restriction>
+  	</xsd:simpleType>
+  	
+  	<!-- try a couple of restrictions and co 
+  	<xsd:complexType name="EventStartEmpty">
+ 		<xsd:complexContent>
+    		<xsd:extension base="bpmn:Activity">
+	    		<xsd:attribute fixed="EventStartEmpty" name="activityType" type="bpmn:ActivityType"/>
+    		</xsd:extension>
+  		</xsd:complexContent>
+	</xsd:complexType> -->
+  
+</xsd:schema>

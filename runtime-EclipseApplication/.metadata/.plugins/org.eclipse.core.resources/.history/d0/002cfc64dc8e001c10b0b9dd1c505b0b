@@ -1,0 +1,14 @@
+XpdlRoot{
+	diagramName "default"
+	pools {
+		Pool{
+			name "client"
+			lanes {
+				Lane {
+					name "default"
+				}
+			}
+		}
+	}	
+	
+}

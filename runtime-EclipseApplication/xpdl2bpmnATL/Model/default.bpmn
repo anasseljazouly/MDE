@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<bpmn:BpmnDiagram xmlns:bpmn="http://stp.eclipse.org/bpmn" name="testDiagram" title="testDiagram">
+  <pools ID="P1" name="pool1">
+    <lanes ID="L1" name="lane1">
+      <activities>_GWtbwpmQEe2rK5xFJip1tw</activities>
+    </lanes>
+  </pools>
+  <pools ID="P2" name="pool2">
+    <lanes ID="L2" name="lane2">
+      <activities>_GWuC0pmQEe2rK5xFJip1tw</activities>
+    </lanes>
+  </pools>
+</bpmn:BpmnDiagram>
